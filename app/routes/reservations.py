@@ -35,7 +35,7 @@ def create_reservation(payload: reservation_schema.ReservationCreate, db: Sessio
 
     total_price = nights * prop.price_per_night
 
-    new_reservation = models.reservation.Reservation(**payload.dict(), total_price=total_price)
+    new_reservation = models.reservation.Reservation(**payload.model_dump(), total_price=total_price)
     db.add(new_reservation)
     db.commit()
     db.refresh(new_reservation)

@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from typing import Optional
 
 class PropertyBase(BaseModel):
@@ -24,4 +24,6 @@ class PropertyOut(PropertyBase):
     id: int
 
     class Config:
-        from_attributes = True
+        pass
+
+model_config = ConfigDict(from_attributes=True)

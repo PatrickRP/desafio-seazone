@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, ConfigDict
 from datetime import date
 from decimal import Decimal
 
@@ -21,5 +21,6 @@ class ReservationOut(ReservationBase):
     total_price: Decimal
 
     class Config:
-        from_attributes = True
-        orm_mode = True
+        pass
+
+model_config = ConfigDict(from_attributes = True)

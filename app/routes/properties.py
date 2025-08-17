@@ -12,7 +12,7 @@ router = APIRouter(prefix="/properties", tags=["Properties"])
 
 @router.post("/", response_model=property_schema.PropertyOut)
 async def create_property(payload: property_schema.PropertyCreate, db: Session = Depends(get_db)):
-    new_property = models.property.Property(**payload.dict())
+    new_property = models.property.Property(**payload.model_dump())
     db.add(new_property)
     db.commit()
     db.refresh(new_property)
