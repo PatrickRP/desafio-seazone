@@ -10,11 +10,15 @@ O projeto foi criado com base no documento de **Requisitos Funcionais** fornecid
 - **Propriedades**
   - Cadastro de propriedade (`POST /properties`)
   - Listagem de propriedades (`GET /properties`)
+  - Listagem de uma propriedade específica (`GET /properties/{property_id}`)
+  - Atualização de uma propriedade (`PUT /properties/{property_id}`)
+  - Deleta uma propriedade (`DELETE /properties/{property_id}`)
   - Consulta de disponibilidade (`GET /properties/availability`)
 
 - **Reservas**
   - Cadastro de reserva (`POST /reservations`)
   - Listagem de reservas (`GET /reservations`)
+  - Cancela uma reserva (`GET /reservations/{reservation_id}`)
 
 - **Regra de disponibilidade**
   - A API calcula a disponibilidade de uma propriedade entre duas datas,
@@ -121,23 +125,56 @@ curl http://localhost:8000/properties/
 
 ### Verificar disponibilidade
 ```bash
-curl "http://localhost:8000/properties/availability?property_id=1&start_date=2025-08-20&end_date=2025-08-25"
+curl "http://localhost:8000/properties/availability?property_id=1&start_date=2025-08-20&end_date=2025-08-25&guests_quantity=5"
+```
+
+### Listar propriedade específica
+```bash
+curl http://localhost:8000/properties/1
+```
+
+### Atualiza propriedade
+```bash
+curl -X PUT http://localhost:8000/properties/1 -H "Content-Type: application/json" -d '{
+  "title": "Casa de campo",
+  "address_street": "Av Afonso Pena",
+  "address_number": "2024",
+  "address_neighborhood": "Jurere",
+  "address_city": "Floripa",
+  "address_state": "SC",
+  "country": "Brazil",
+  "rooms": 4,
+  "capacity": 5,
+  "price_per_night": 125.0
+  "id": 1
+}'
+```
+
+### Deleta uma propriedade
+```bash
+curl -X DELETE http://localhost:8000/properties/1
 ```
 
 ### Criar uma reserva
 ```bash
 curl -X POST http://localhost:8000/reservations/ -H "Content-Type: application/json" -d '{
-  "property_id": 1,
-  "customer_name": "João Silva",
-  "start_date": "2025-08-20",
-  "end_date": "2025-08-23",
-  "guests": 4
+    "property_id": 2,
+    "client_name": "João Silva",
+    "client_email": "joaosilva@teste.com",
+    "start_date": "2025-08-20",
+    "end_date": "2025-08-23",
+    "guests_quantity": 4
 }'
 ```
 
 ### Listar reservas
 ```bash
 curl http://localhost:8000/reservations/
+```
+
+### Cancelar reservas
+```bash
+curl -X DELETE http://localhost:8000/reservations/1
 ```
 
 ---

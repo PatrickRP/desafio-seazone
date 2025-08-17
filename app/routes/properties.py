@@ -44,13 +44,6 @@ async def list_properties(
     
     return properties
 
-@router.get("/{property_id}", response_model=property_schema.PropertyOut)
-def get_property(property_id: int, db: Session = Depends(get_db)):
-    prop = db.query(models.property.Property).filter(models.property.Property.id == property_id).first()
-    if not prop:
-        raise HTTPException(status_code=404, detail="Property not found")
-    return prop
-
 @router.get("/availability")
 def check_availability(
     property_id: int,
@@ -79,6 +72,13 @@ def check_availability(
         return {"available": False, "reason": "Property already reserved in this period"}
 
     return {"available": True, "reason": "Property available"}
+
+@router.get("/{property_id}", response_model=property_schema.PropertyOut)
+def get_property(property_id: int, db: Session = Depends(get_db)):
+    prop = db.query(models.property.Property).filter(models.property.Property.id == property_id).first()
+    if not prop:
+        raise HTTPException(status_code=404, detail="Property not found")
+    return prop
 
 @router.put("/{property_id}", response_model=property_schema.PropertyOut)
 def update_property(property_id: int, payload: property_schema.PropertyUpdate, db: Session = Depends(get_db)):
