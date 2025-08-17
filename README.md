@@ -144,6 +144,6 @@ curl http://localhost:8000/reservations/
 
 ## 👨‍💻 Autor
 
-**Patrick Rodrigues Paredes**
+##### Patrick Rodrigues Paredes
 Desafio Backend Jr - Seazone  
 Desenvolvido com 💙 usando **FastAPI**
